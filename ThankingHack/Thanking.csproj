@@ -17,5 +17,11 @@
 	<ItemGroup>
 		<Reference Include="..\Libraries\*.dll" Private="false" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RocketModFix.UnityEngine.Redist" Version="*" />
+		<PackageReference Include="RocketModFix.Unturned.Redist.Client" Version="*" />
+	</ItemGroup>
 	
 </Project>
