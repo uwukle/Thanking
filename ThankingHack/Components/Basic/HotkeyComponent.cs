@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Thanking.Attributes;
 using Thanking.Components.UI.Menu;
 using Thanking.Utilities;
@@ -19,19 +18,17 @@ public class HotkeyComponent : MonoBehaviour
     public static int CurrentKeyCount;
     public static List<KeyCode> CurrentKeys;
     
-    public static Dictionary<string, Action> ActionDict = new Dictionary<string, Action>();
-    public static KeyCode[] Keys = (KeyCode[])System.Enum.GetValues(typeof(KeyCode));
+    public static Dictionary<string, Action> ActionDict = [];
+    public static KeyCode[] Keys = (KeyCode[])Enum.GetValues(typeof(KeyCode));
     
     public void Update()
     {
         if (NeedsKeys)
         {
-            List<KeyCode> ClonedKeys = CurrentKeys.ToList();
+            List<KeyCode> ClonedKeys = [.. CurrentKeys];
             CurrentKeys.Clear();
         
-            foreach (KeyCode k in Keys)
-                if (Input.GetKey(k))
-                    CurrentKeys.Add(k);
+            foreach (KeyCode k in Keys) if (Input.GetKey(k)) CurrentKeys.Add(k);
 
             if (CurrentKeys.Count < CurrentKeyCount && CurrentKeyCount > 0)
             {
@@ -42,12 +39,9 @@ public class HotkeyComponent : MonoBehaviour
             CurrentKeyCount = CurrentKeys.Count;
         }
 
-        if (MenuComponent.IsInMenu)
-            return;
+        if (MenuComponent.IsInMenu) return;
         
-        foreach (KeyValuePair<string, Action> kvp in ActionDict)
-            if (HotkeyUtilities.IsHotkeyDown(kvp.Key))
-                kvp.Value();
+        foreach (KeyValuePair<string, Action> kvp in ActionDict) if (HotkeyUtilities.IsHotkeyDown(kvp.Key)) kvp.Value();
     }
 
     public static void Clear()
@@ -55,6 +49,6 @@ public class HotkeyComponent : MonoBehaviour
         NeedsKeys = false;
         StopKeys = false;
         CurrentKeyCount = 0;
-        CurrentKeys = new List<KeyCode>();
+        CurrentKeys = [];
     }
 }

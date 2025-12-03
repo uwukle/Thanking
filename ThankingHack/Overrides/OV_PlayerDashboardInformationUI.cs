@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿// This override is currently deprecated and no longer required. The functionality it relies on must be implemented differently.
+
+/*
+using System.Reflection;
 using SDG.Unturned;
 using Thanking.Attributes;
 using Thanking.Coroutines;
@@ -229,3 +232,5 @@ public static class OV_PlayerDashboardInformationUI
 			mapDynamicContainer.add(sleekImageTexture13);
 		}
 }
+
+*/
