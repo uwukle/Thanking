@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Commercial" />
+    <BuildType Name="Debug" />
+    <BuildType Name="Private" />
+  </Configurations>
+  <Project Path="ThankingHack/Thanking.csproj" />
+</Solution>
