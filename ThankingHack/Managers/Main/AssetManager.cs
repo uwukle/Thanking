@@ -4,8 +4,8 @@ using Thanking.Misc;
 using Thanking.Utilities;
 using Thnkng;
 
-namespace Thanking.Managers.Main
-{
+namespace Thanking.Managers.Main;
+
 	public static class AssetManager
 	{
 		public static void Init()
@@ -18,4 +18,3 @@ namespace Thanking.Managers.Main
 			Ldr.HookObject.GetComponent<CoroutineComponent>().StartCoroutine(LoaderCoroutines.LoadAssets());
 		}
 	}
-}

@@ -1,8 +1,8 @@
 ﻿using Thanking.Misc.Enums;
 using UnityEngine;
 
-namespace Thanking.Misc.Classes.ESP
-{
+namespace Thanking.Misc.Classes.ESP;
+
 	public class ESPObject
 	{
 		public ESPTarget Target;
@@ -16,4 +16,3 @@ namespace Thanking.Misc.Classes.ESP
 			GObject = go;
 		}
 	}
-}

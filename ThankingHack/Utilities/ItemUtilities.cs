@@ -6,33 +6,33 @@ using Thanking.Misc.Classes.Misc;
 using Thanking.Options;
 using UnityEngine;
 
-namespace Thanking.Utilities
-{
-    public static class ItemUtilities
-    {
-        public static bool Whitelisted(ItemAsset asset, ItemOptionList OptionList)
-        {
-            if (OptionList.ItemfilterCustom && OptionList.AddedItems.Contains(asset.id))
-                return true;
-            if (OptionList.ItemfilterGun && asset is ItemGunAsset)
-                return true;
-            if (OptionList.ItemfilterAmmo && asset is ItemMagazineAsset)
-                return true;
-            if (OptionList.ItemfilterMedical && asset is ItemMedicalAsset)
-                return true;
-            if (OptionList.ItemfilterFoodAndWater && (asset is ItemFoodAsset || asset is ItemWaterAsset))
-                return true;
-            if (OptionList.ItemfilterBackpack && asset is ItemBackpackAsset)
-                return true;
-            if (OptionList.ItemfilterCharges && asset is ItemChargeAsset)
-                return true;
-            if (OptionList.ItemfilterFuel && asset is ItemFuelAsset)
-                return true;
-            if (OptionList.ItemfilterClothing && asset is ItemClothingAsset)
-                return true;
+namespace Thanking.Utilities;
 
-            return false;
-        }
+public static class ItemUtilities
+{
+    public static bool Whitelisted(ItemAsset asset, ItemOptionList OptionList)
+    {
+        if (OptionList.ItemfilterCustom && OptionList.AddedItems.Contains(asset.id))
+            return true;
+        if (OptionList.ItemfilterGun && asset is ItemGunAsset)
+            return true;
+        if (OptionList.ItemfilterAmmo && asset is ItemMagazineAsset)
+            return true;
+        if (OptionList.ItemfilterMedical && asset is ItemMedicalAsset)
+            return true;
+        if (OptionList.ItemfilterFoodAndWater && (asset is ItemFoodAsset || asset is ItemWaterAsset))
+            return true;
+        if (OptionList.ItemfilterBackpack && asset is ItemBackpackAsset)
+            return true;
+        if (OptionList.ItemfilterCharges && asset is ItemChargeAsset)
+            return true;
+        if (OptionList.ItemfilterFuel && asset is ItemFuelAsset)
+            return true;
+        if (OptionList.ItemfilterClothing && asset is ItemClothingAsset)
+            return true;
+
+        return false;
+    }
 
 		public static void DrawItemButton(ItemAsset asset, HashSet<ushort> AddedItems)
 		{
@@ -123,4 +123,3 @@ namespace Thanking.Utilities
 			});
 		}
 	}
-}

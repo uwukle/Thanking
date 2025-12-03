@@ -6,8 +6,8 @@ using Thanking.Options;
 using Thanking.Utilities;
 using UnityEngine;
 
-namespace Thanking.Overrides
-{
+namespace Thanking.Overrides;
+
 	public static class OV_DamageTool
 	{
 		public static OverrideType OVType = OverrideType.None;
@@ -38,7 +38,7 @@ namespace Thanking.Overrides
 					    if (VectorUtilities.GetDistance(Player.player.transform.position,
 						        Provider.clients[i].player.transform.position) > 15.5)
 						    continue;
-                        
+                    
 					    RaycastUtilities.GenerateRaycast(out RaycastInfo ri2);
 					    return ri2;
 				    }
@@ -49,4 +49,3 @@ namespace Thanking.Overrides
 			return RaycastUtilities.GenerateOriginalRaycast(ray, range, mask);
 	    }
 	}
-}

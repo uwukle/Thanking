@@ -6,13 +6,13 @@ using Thanking.Threads;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Components.UI.Menu.Tabs
+namespace Thanking.Components.UI.Menu.Tabs;
+
+public static class MiscTab
 {
-    public static class MiscTab
+    public static void Tab()
     {
-        public static void Tab()
-        {
-            Prefab.MenuArea(new Rect(0, 0, 466, 436), "MISC", () =>
+        Prefab.MenuArea(new Rect(0, 0, 466, 436), "MISC", () =>
 			{
 				GUILayout.BeginHorizontal();
 				GUILayout.BeginVertical(GUILayout.Width(230));
@@ -65,7 +65,7 @@ namespace Thanking.Components.UI.Menu.Tabs
 				
 				Prefab.Toggle("Punch Silent Aim", ref MiscOptions.PunchSilentAim);
 
-                GUILayout.EndVertical();
+            GUILayout.EndVertical();
 				GUILayout.BeginVertical();
 
 				if (Provider.isConnected && OptimizationVariables.MainPlayer != null)
@@ -100,32 +100,31 @@ namespace Thanking.Components.UI.Menu.Tabs
 				GUILayout.EndHorizontal();
 
 				Prefab.MenuArea(new Rect(10, 436 - 135 - 10, 220, 135), "SPAMMER", () =>
-                {
-                    Prefab.Toggle("Enabled", ref MiscOptions.SpammerEnabled);
+            {
+                Prefab.Toggle("Enabled", ref MiscOptions.SpammerEnabled);
 
 					GUILayout.Space(5);
-                    MiscOptions.SpamText = Prefab.TextField(MiscOptions.SpamText, "Text: ", 150);
-                    GUILayout.Space(10);	
-                    GUILayout.Label("Delay: " + MiscOptions.SpammerDelay + "ms", Prefab._TextStyle);
-                    GUILayout.Space(5);
-                    MiscOptions.SpammerDelay = (int)Prefab.Slider(0, 10000, MiscOptions.SpammerDelay, 175);
-                });
+                MiscOptions.SpamText = Prefab.TextField(MiscOptions.SpamText, "Text: ", 150);
+                GUILayout.Space(10);	
+                GUILayout.Label("Delay: " + MiscOptions.SpammerDelay + "ms", Prefab._TextStyle);
+                GUILayout.Space(5);
+                MiscOptions.SpammerDelay = (int)Prefab.Slider(0, 10000, MiscOptions.SpammerDelay, 175);
+            });
 
-                Prefab.MenuArea(new Rect(220 + 10 + 5, 436 - 135 - 30, 221, 155), "INTERACT", () =>
+            Prefab.MenuArea(new Rect(220 + 10 + 5, 436 - 135 - 30, 221, 155), "INTERACT", () =>
 				{
 					Prefab.Toggle("Interact Through Things", ref InteractionOptions.InteractThroughWalls);
 
 					if (!InteractionOptions.InteractThroughWalls)
 						return;
 
-                    Prefab.Toggle("Walls/Floors/Etc", ref InteractionOptions.NoHitStructures);
-                    Prefab.Toggle("Lockers/Doors/Etc", ref InteractionOptions.NoHitBarricades);
-                    Prefab.Toggle("Items", ref InteractionOptions.NoHitItems);
-                    Prefab.Toggle("Vehicles", ref InteractionOptions.NoHitVehicles);
-                    Prefab.Toggle("Resources", ref InteractionOptions.NoHitResources);
+                Prefab.Toggle("Walls/Floors/Etc", ref InteractionOptions.NoHitStructures);
+                Prefab.Toggle("Lockers/Doors/Etc", ref InteractionOptions.NoHitBarricades);
+                Prefab.Toggle("Items", ref InteractionOptions.NoHitItems);
+                Prefab.Toggle("Vehicles", ref InteractionOptions.NoHitVehicles);
+                Prefab.Toggle("Resources", ref InteractionOptions.NoHitResources);
 					Prefab.Toggle("Ground/Buildings", ref InteractionOptions.NoHitEnvironment);
-                });
             });
-        }
+        });
     }
 }

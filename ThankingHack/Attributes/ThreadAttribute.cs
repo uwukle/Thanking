@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace Thanking.Attributes
-{
+namespace Thanking.Attributes;
+
 	/// <summary>
 	/// Attribute on a target method used to create a different thread
 	/// </summary>
@@ -10,4 +10,3 @@ namespace Thanking.Attributes
 	{
 
 	}
-}

@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Thanking.Variables
+namespace Thanking.Variables;
+
+public class TracerLine
 {
-    public class TracerLine
-    {
-        public Vector3 StartPosition;
-        public Vector3 EndPosition;
-        public bool Hit = false;
-        public DateTime CreationTime;
-    }
+    public Vector3 StartPosition;
+    public Vector3 EndPosition;
+    public bool Hit = false;
+    public DateTime CreationTime;
 }

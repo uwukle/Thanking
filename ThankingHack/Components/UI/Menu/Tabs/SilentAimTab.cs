@@ -5,8 +5,8 @@ using Thanking.Options.AimOptions;
 using Thanking.Utilities;
 using UnityEngine;
 
-namespace Thanking.Components.UI.Menu.Tabs
-{
+namespace Thanking.Components.UI.Menu.Tabs;
+
 	public class SilentAimTab
 	{
 		public static void Tab()
@@ -14,20 +14,20 @@ namespace Thanking.Components.UI.Menu.Tabs
 			Prefab.MenuArea(new Rect(0, 0, 466, 436), "SILENT AIM", () =>
 			{
 				GUILayout.Space(2);
-                Prefab.Toggle("Enabled", ref RaycastOptions.Enabled);
+            Prefab.Toggle("Enabled", ref RaycastOptions.Enabled);
 
-                if (!RaycastOptions.Enabled)
-                    return;
+            if (!RaycastOptions.Enabled)
+                return;
 
-                GUILayout.Space(5);
+            GUILayout.Space(5);
 
-                Prefab.Toggle($"Hold Key ({HotkeyUtilities.GetHotkeyString("SilentAim", "_SilentAimKey")})", ref RaycastOptions.HoldKey);
+            Prefab.Toggle($"Hold Key ({HotkeyUtilities.GetHotkeyString("SilentAim", "_SilentAimKey")})", ref RaycastOptions.HoldKey);
 
-                GUILayout.Space(5);
+            GUILayout.Space(5);
 
-                GUILayout.Space(10);
+            GUILayout.Space(10);
 
-                Prefab.Toggle("Sphere position prediction", ref SphereOptions.SpherePrediction);
+            Prefab.Toggle("Sphere position prediction", ref SphereOptions.SpherePrediction);
 			    GUILayout.Space(5);
 
 			    if (!SphereOptions.SpherePrediction)
@@ -88,4 +88,3 @@ namespace Thanking.Components.UI.Menu.Tabs
 			});
 		}
 	}
-}

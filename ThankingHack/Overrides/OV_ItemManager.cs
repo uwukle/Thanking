@@ -6,8 +6,8 @@ using Thanking.Options;
 using Thanking.Utilities;
 using UnityEngine;
 
-namespace Thanking.Overrides
-{
+namespace Thanking.Overrides;
+
 	public static class OV_ItemManager
 	{
 		[Override(typeof(ItemManager), "getItemsInRadius", BindingFlags.Public | BindingFlags.Static)]
@@ -23,4 +23,3 @@ namespace Thanking.Overrides
 		}
 		
 	}
-}

@@ -4,8 +4,8 @@ using System.Linq;
 using Thanking.Misc.Serializables;
 using UnityEngine;
 
-namespace Thanking.Misc
-{
+namespace Thanking.Misc;
+
 	public static class Extensions
 	{
 		public static Color Invert(this Color32 color) =>
@@ -23,5 +23,4 @@ namespace Thanking.Misc
 				source.Add(t);
 		}
 	}
-}
 //Discord test

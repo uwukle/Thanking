@@ -3,10 +3,10 @@ using Thanking.Options;
 using Thanking.Options.VisualOptions;
 using Thanking.Variables;
 
-namespace Thanking.Utilities
+namespace Thanking.Utilities;
+
+public static class FriendUtilities
 {
-    public static class FriendUtilities
-    {
 	    public static bool IsFriendly(Player player) =>
 		    (player.quests.isMemberOfSameGroupAs(OptimizationVariables.MainPlayer) && ESPOptions.UsePlayerGroup) ||
 		    MiscOptions.Friends.Contains(player.channel.owner.playerID.steamID.m_SteamID);
@@ -27,4 +27,3 @@ namespace Thanking.Utilities
 				MiscOptions.Friends.Remove(steamid);
 		}
 	}
-}

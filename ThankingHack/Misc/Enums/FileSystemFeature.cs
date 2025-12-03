@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace Thanking.Misc.Enums
-{
+namespace Thanking.Misc.Enums;
+
 	[Flags]
 	public enum FileSystemFeature : uint
 	{
@@ -108,4 +108,3 @@ namespace Thanking.Misc.Enums
 		/// </summary>
 		VolumeQuotas = 0x20
 	}
-}

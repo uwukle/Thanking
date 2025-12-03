@@ -9,17 +9,16 @@ using Thanking.Attributes;
 using Thanking.Options;
 using Thanking.Utilities;
 
-namespace Thanking.Overrides
+namespace Thanking.Overrides;
+
+public class OV_PlayerLook
 {
-    public class OV_PlayerLook
+    [Override(typeof(PlayerLook), "onDamaged", BindingFlags.NonPublic | BindingFlags.Instance)]
+    public static void OV_onDamaged(byte damage)
     {
-        [Override(typeof(PlayerLook), "onDamaged", BindingFlags.NonPublic | BindingFlags.Instance)]
-        public static void OV_onDamaged(byte damage)
-        {
-            if (MiscOptions.NoFlinch)
-                return;
-            else
-                OverrideUtilities.CallOriginal(null, damage);
-        }
+        if (MiscOptions.NoFlinch)
+            return;
+        else
+            OverrideUtilities.CallOriginal(null, damage);
     }
 }

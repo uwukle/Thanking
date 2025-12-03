@@ -6,8 +6,8 @@ using Thanking.Options.AimOptions;
 using Thanking.Utilities;
 using UnityEngine;
 
-namespace Thanking.Overrides
-{
+namespace Thanking.Overrides;
+
 	public static class OV_Input
 	{
 		public static bool InputEnabled = true;
@@ -21,7 +21,7 @@ namespace Thanking.Overrides
 			InputEnabled = true;	
 		
 		[Override(typeof(Input), "GetKey", BindingFlags.Public | BindingFlags.Static, 1)]
-        public static bool OV_GetKey(KeyCode key)
+    public static bool OV_GetKey(KeyCode key)
 		{
 			if (!DrawUtilities.ShouldRun() || !InputEnabled)
 				return (bool) OverrideUtilities.CallOriginal(null, key);		
@@ -38,5 +38,4 @@ namespace Thanking.Overrides
 			
 			return (bool) OverrideUtilities.CallOriginal(null, key);
 		}
-    }
 }

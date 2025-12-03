@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Thanking.Misc.Serializables
-{
+namespace Thanking.Misc.Serializables;
+
 	public class SerializableVector
 	{
 		public float x, y, z;
@@ -18,4 +18,3 @@ namespace Thanking.Misc.Serializables
 
 		public static implicit operator Vector3(SerializableVector vector) => vector.ToVector();
 	}
-}

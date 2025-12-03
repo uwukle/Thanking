@@ -14,52 +14,52 @@ using Thanking.Variables;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Thanking.Coroutines
-{
+namespace Thanking.Coroutines;
+
 	public static class ESPCoroutines
-    {
-        public static Shader LitChams;
-        public static Shader UnlitChams;
-        public static Shader OutlineShader;
-        public static Shader IgnoreZ;
-        public static Shader Normal;
+{
+    public static Shader LitChams;
+    public static Shader UnlitChams;
+    public static Shader OutlineShader;
+    public static Shader IgnoreZ;
+    public static Shader Normal;
 	    
-        public static IEnumerator DoChams()
-        {
+    public static IEnumerator DoChams()
+    {
 	        #if DEBUG
 	        DebugUtilities.Log("Starting Chams Coroutine");
 	        #endif
 	        
-            while (true)
-            {
-                if (!DrawUtilities.ShouldRun() || UnlitChams == null)
-                {
-                    yield return new WaitForSeconds(1f);
-
-                    continue;
-                }
-                try
-                {
-                    if (ESPOptions.ChamsEnabled)
-                        EnableChams();
-                    else if (ESPOptions.IgnoreZ) 
-                        EnableXRay();
-                    else
-                        DisableShaders();
-                }
-                catch (Exception e) { Debug.LogException(e); }
-                yield return new WaitForSeconds(5);
-            }
-        }
-
-        public static void DoChamsGameObject(GameObject pgo, Color32 front, Color32 behind)
+        while (true)
         {
-            if (UnlitChams == null) return;
-
-            Renderer[] rds = pgo.GetComponentsInChildren<Renderer>();
-
-            for (int j = 0; j < rds.Length; j++)
+            if (!DrawUtilities.ShouldRun() || UnlitChams == null)
             {
+                yield return new WaitForSeconds(1f);
+
+                continue;
+            }
+            try
+            {
+                if (ESPOptions.ChamsEnabled)
+                    EnableChams();
+                else if (ESPOptions.IgnoreZ) 
+                    EnableXRay();
+                else
+                    DisableShaders();
+            }
+            catch (Exception e) { Debug.LogException(e); }
+            yield return new WaitForSeconds(5);
+        }
+    }
+
+    public static void DoChamsGameObject(GameObject pgo, Color32 front, Color32 behind)
+    {
+        if (UnlitChams == null) return;
+
+        Renderer[] rds = pgo.GetComponentsInChildren<Renderer>();
+
+        for (int j = 0; j < rds.Length; j++)
+        {
 	            if (!(rds[j].material.shader != LitChams | UnlitChams)) continue;
 	            
 	            Material[] materials = rds[j].materials;
@@ -71,17 +71,17 @@ namespace Thanking.Coroutines
 		            materials[k].SetColor("_ColorVisible", new Color32(front.r, front.g, front.b, front.a));
 		            materials[k].SetColor("_ColorBehind", new Color32(behind.r, behind.g, behind.b, behind.a));
 	            }
-            }
         }
+    }
 
-        public static void SeeThrough(GameObject pgo)
+    public static void SeeThrough(GameObject pgo)
+    {
+        if (IgnoreZ == null) return;
+
+        Renderer[] rds = pgo.GetComponentsInChildren<Renderer>();
+
+        for (int j = 0; j < rds.Length; j++)
         {
-            if (IgnoreZ == null) return;
-
-            Renderer[] rds = pgo.GetComponentsInChildren<Renderer>();
-
-            for (int j = 0; j < rds.Length; j++)
-            {
 	            if (!(rds[j].material.shader != IgnoreZ)) continue;
 	            
 	            Material[] materials = rds[j].materials;
@@ -90,12 +90,12 @@ namespace Thanking.Coroutines
 	            {
 		            materials[k].shader = IgnoreZ;
 	            }
-            }
         }
+    }
 
-        [OffSpy]
-        public static void EnableChams()
-        {
+    [OffSpy]
+    public static void EnableChams()
+    {
 	        if (!ESPOptions.ChamsEnabled) return;
 
 	        Color32 friendly_front = ColorUtilities.getColor("_ChamsFriendVisible");
@@ -118,11 +118,11 @@ namespace Thanking.Coroutines
 		        GameObject pgo = plr.gameObject;
 		        DoChamsGameObject(pgo, front, back);
 	        }
-        }
+    }
 
-        [OffSpy]
-        public static void EnableXRay()
-        {
+    [OffSpy]
+    public static void EnableXRay()
+    {
 	        if (!ESPOptions.IgnoreZ) return;
 	        SteamPlayer[] players = Provider.clients.ToArray();
 	        for (int index = 0; index < players.Length; index++)
@@ -136,34 +136,34 @@ namespace Thanking.Coroutines
 		        GameObject pgo = plr.gameObject;
 		        SeeThrough(pgo);
 	        }
-        }
+    }
 
-        [OnSpy]
-        public static void DisableShaders()
+    [OnSpy]
+    public static void DisableShaders()
+    {
+        if (Normal == null) return;
+
+        for (int index = 0; index < Provider.clients.ToArray().Length; index++)
         {
-            if (Normal == null) return;
+            Player plr = Provider.clients.ToArray()[index].player;
 
-            for (int index = 0; index < Provider.clients.ToArray().Length; index++)
+            if (plr == null || plr == OptimizationVariables.MainPlayer || plr.life == null ||
+                plr.life.isDead) continue;
+
+            GameObject pgo = plr.gameObject;
+
+            Renderer[] renderers = pgo.GetComponentsInChildren<Renderer>();
+
+            for (int j = 0; j < renderers.Length; j++)
             {
-                Player plr = Provider.clients.ToArray()[index].player;
+                Material[] materials = renderers[j].materials;
 
-                if (plr == null || plr == OptimizationVariables.MainPlayer || plr.life == null ||
-                    plr.life.isDead) continue;
-
-                GameObject pgo = plr.gameObject;
-
-                Renderer[] renderers = pgo.GetComponentsInChildren<Renderer>();
-
-                for (int j = 0; j < renderers.Length; j++)
-                {
-                    Material[] materials = renderers[j].materials;
-
-                    for (int k = 0; k < materials.Length; k++)
-                        if (materials[k].shader != Normal)
-                            materials[k].shader = Normal;
-                }
+                for (int k = 0; k < materials.Length; k++)
+                    if (materials[k].shader != Normal)
+                        materials[k].shader = Normal;
             }
         }
+    }
 
 		public static IEnumerator UpdateObjectList()
 		{
@@ -345,4 +345,3 @@ namespace Thanking.Coroutines
 			}
 		}
 	}
-}

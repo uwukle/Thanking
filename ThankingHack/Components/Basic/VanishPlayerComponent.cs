@@ -13,56 +13,55 @@ using Thanking.Options.VisualOptions;
 using Thanking.Utilities;
 using UnityEngine;
 
-namespace Thanking.Components.Basic
+namespace Thanking.Components.Basic;
+
+[Component]
+public class VanishPlayerComponent : MonoBehaviour
 {
-    [Component]
-    public class VanishPlayerComponent : MonoBehaviour
+    static bool WasEnabled;
+    public static Rect veww;
+
+    [OnSpy]
+    public static void Disable()
     {
-        static bool WasEnabled;
-        public static Rect veww;
+        WasEnabled = ESPOptions.ShowVanishPlayers;
+        ESPOptions.ShowVanishPlayers = false;
+    }
 
-        [OnSpy]
-        public static void Disable()
+    [OffSpy]
+    public static void Enable() =>
+        ESPOptions.ShowVanishPlayers = WasEnabled;
+
+    void OnGUI()
+    {
+        if (ESPOptions.ShowVanishPlayers && Provider.isConnected && !Provider.isLoading)
         {
-            WasEnabled = ESPOptions.ShowVanishPlayers;
-            ESPOptions.ShowVanishPlayers = false;
+            GUI.color = new Color(1f, 1f, 1f, 0f);
+            veww = GUILayout.Window(350, MiscOptions.vew, PlayersMenu, "Vanish Players");
+            MiscOptions.vew.x = veww.x;
+            MiscOptions.vew.y = veww.y;
+            GUI.color = Color.white;
         }
+    }
 
-        [OffSpy]
-        public static void Enable() =>
-            ESPOptions.ShowVanishPlayers = WasEnabled;
+    void PlayersMenu(int windowID)
+    {
+        Drawing.DrawRect(new Rect(0, 0, MiscOptions.vew.width, 20), new Color32(44, 44, 44, 255));
+        Drawing.DrawRect(new Rect(0, 20, MiscOptions.vew.width, 5), new Color32(34, 34, 34, 255));
+        Drawing.DrawRect(new Rect(0, 25, MiscOptions.vew.width, MiscOptions.vew.height + 25), new Color32(64, 64, 64, 255)); //bg
+        GUILayout.Space(-19);
+        GUILayout.Label("Vanish Players");
 
-        void OnGUI()
+        int height = 55;
+        foreach (SteamPlayer player in Provider.clients)
         {
-            if (ESPOptions.ShowVanishPlayers && Provider.isConnected && !Provider.isLoading)
+            if (Vector3.Distance(player.player.transform.position, Vector3.zero) < 10)
             {
-                GUI.color = new Color(1f, 1f, 1f, 0f);
-                veww = GUILayout.Window(350, MiscOptions.vew, PlayersMenu, "Vanish Players");
-                MiscOptions.vew.x = veww.x;
-                MiscOptions.vew.y = veww.y;
-                GUI.color = Color.white;
+                GUILayout.Label(player.playerID.characterName);
+                height += 12;
             }
         }
-
-        void PlayersMenu(int windowID)
-        {
-            Drawing.DrawRect(new Rect(0, 0, MiscOptions.vew.width, 20), new Color32(44, 44, 44, 255));
-            Drawing.DrawRect(new Rect(0, 20, MiscOptions.vew.width, 5), new Color32(34, 34, 34, 255));
-            Drawing.DrawRect(new Rect(0, 25, MiscOptions.vew.width, MiscOptions.vew.height + 25), new Color32(64, 64, 64, 255)); //bg
-            GUILayout.Space(-19);
-            GUILayout.Label("Vanish Players");
-
-            int height = 55;
-            foreach (SteamPlayer player in Provider.clients)
-            {
-                if (Vector3.Distance(player.player.transform.position, Vector3.zero) < 10)
-                {
-                    GUILayout.Label(player.playerID.characterName);
-                    height += 12;
-                }
-            }
-            MiscOptions.vew.height = height;
-            GUI.DragWindow();
-        }
+        MiscOptions.vew.height = height;
+        GUI.DragWindow();
     }
 }

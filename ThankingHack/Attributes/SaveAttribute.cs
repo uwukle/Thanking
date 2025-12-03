@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace Thanking.Attributes
+namespace Thanking.Attributes;
+
+/// <summary>
+/// Config save field
+/// </summary>
+[AttributeUsage(AttributeTargets.Field)]
+public class SaveAttribute : Attribute
 {
-    /// <summary>
-    /// Config save field
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Field)]
-    public class SaveAttribute : Attribute
-    {
-        
-    }
+    
 }

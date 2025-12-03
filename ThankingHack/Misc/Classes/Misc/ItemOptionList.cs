@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Thanking.Misc.Serializables;
 
-namespace Thanking.Misc.Classes.Misc
-{
+namespace Thanking.Misc.Classes.Misc;
+
 	public class ItemOptionList
 	{
 		public HashSet<ushort> AddedItems = new HashSet<ushort>();
@@ -19,4 +19,3 @@ namespace Thanking.Misc.Classes.Misc
 		public SerializableVector2 additemscroll = new SerializableVector2(0, 0);
 		public SerializableVector2 removeitemscroll = new SerializableVector2(0, 0);
 	}
-}

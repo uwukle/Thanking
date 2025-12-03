@@ -6,8 +6,8 @@ using Thanking.Attributes;
 using Thanking.Threads;
 using Thanking.Utilities;
 
-namespace Thanking.Overrides
-{
+namespace Thanking.Overrides;
+
 	public static class OV_Provider
 	{
 		public static bool IsConnected;
@@ -21,11 +21,10 @@ namespace Thanking.Overrides
 			if (steamID != Provider.server && packet[0] != (byte)ESteamPacket.UPDATE_VOICE)
 				return;
 
-            OverrideUtilities.CallOriginal(null, steamID, packet, offset, size, channel); 
-        }
+        OverrideUtilities.CallOriginal(null, steamID, packet, offset, size, channel); 
+    }
 		
 		[Override(typeof(Provider), "OnApplicationQuit", BindingFlags.NonPublic | BindingFlags.Instance)]
 		public static void OV_OnApplicationQuit() =>
 			Process.GetCurrentProcess().Kill();
 	}
-}

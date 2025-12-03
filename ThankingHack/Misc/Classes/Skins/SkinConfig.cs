@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Thanking.Misc.Classes.Skins
-{
+namespace Thanking.Misc.Classes.Skins;
+
 	public class SkinConfig
 	{
 		public HashSet<WeaponSave> WeaponSkins = new HashSet<WeaponSave>();
@@ -13,4 +13,3 @@ namespace Thanking.Misc.Classes.Skins
 		public int MaskID;
 		public int GlassesID;
 	}
-}

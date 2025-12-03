@@ -1,7 +1,7 @@
 ﻿using Thanking.Misc.Enums;
 
-namespace Thanking.Misc.Classes.ESP
-{
+namespace Thanking.Misc.Classes.ESP;
+
 	public class ESPVisual
 	{
 		public bool Enabled;
@@ -28,4 +28,3 @@ namespace Thanking.Misc.Classes.ESP
 		public int MaxTextSize;
 		public int ObjectCap;
 	}
-}

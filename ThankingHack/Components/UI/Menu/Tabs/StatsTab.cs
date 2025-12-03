@@ -1,8 +1,8 @@
 ﻿using SDG.Unturned;
 using UnityEngine;
 
-namespace Thanking.Components.UI.Menu.Tabs
-{
+namespace Thanking.Components.UI.Menu.Tabs;
+
 	public static class StatsTab
 	{
 		public static int Selected = 0;
@@ -96,4 +96,3 @@ namespace Thanking.Components.UI.Menu.Tabs
 			});
 		}
 	}
-}

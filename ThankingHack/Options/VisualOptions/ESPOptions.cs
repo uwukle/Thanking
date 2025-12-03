@@ -9,49 +9,49 @@ using Thanking.Misc.Serializables;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Options.VisualOptions
-{
+namespace Thanking.Options.VisualOptions;
+
 	public static class ESPOptions
 	{
 		#region Global Options
 
 		[Save] public static bool Enabled = true;
 		//[Save] public static KeyCode Toggle = KeyCode.LeftBracket;
-        [Save] public static bool ChamsEnabled = true;
-        [Save] public static bool ChamsFlat = false;
-        [Save] public static bool ShowVanishPlayers = true;
-        [Save] public static bool IgnoreZ = false;
+    [Save] public static bool ChamsEnabled = true;
+    [Save] public static bool ChamsFlat = false;
+    [Save] public static bool ShowVanishPlayers = true;
+    [Save] public static bool IgnoreZ = false;
 
-        [Save]
-        public static ESPVisual[] VisualOptions = Enumerable.Repeat(new ESPVisual
-        {
-            Enabled = false,
-            Labels = true,
-            Boxes = true,
-            ShowName = true,
-            ShowDistance = true,
+    [Save]
+    public static ESPVisual[] VisualOptions = Enumerable.Repeat(new ESPVisual
+    {
+        Enabled = false,
+        Labels = true,
+        Boxes = true,
+        ShowName = true,
+        ShowDistance = true,
 	        ShowAngle = false,
-            TwoDimensional = true,
-            Glow = false,
-            InfiniteDistance = false,
-            LineToObject = false,
-            TextScaling = true,
-            UseObjectCap = true,
+        TwoDimensional = true,
+        Glow = false,
+        InfiniteDistance = false,
+        LineToObject = false,
+        TextScaling = true,
+        UseObjectCap = true,
 	        CustomTextColor = false,
 
-            Distance = 250,
-            Location = LabelLocation.BottomMiddle,
+        Distance = 250,
+        Location = LabelLocation.BottomMiddle,
 
-            FixedTextSize = 11,
-            MinTextSize = 8,
-            MaxTextSize = 11,
-            MinTextSizeDistance = 800,
-            BorderStrength = 2,
-            ObjectCap = 24
-        }, Enum.GetValues(typeof(ESPTarget)).Length).ToArray();
+        FixedTextSize = 11,
+        MinTextSize = 8,
+        MaxTextSize = 11,
+        MinTextSizeDistance = 800,
+        BorderStrength = 2,
+        ObjectCap = 24
+    }, Enum.GetValues(typeof(ESPTarget)).Length).ToArray();
 
-        [Save]
-        public static Dictionary<ESPTarget, int> PriorityTable = Enum.GetValues(typeof(ESPTarget)).Cast<ESPTarget>().ToDictionary(x => x, x => (int)x);
+    [Save]
+    public static Dictionary<ESPTarget, int> PriorityTable = Enum.GetValues(typeof(ESPTarget)).Cast<ESPTarget>().ToDictionary(x => x, x => (int)x);
 
 		#endregion
 
@@ -63,13 +63,13 @@ namespace Thanking.Options.VisualOptions
 
 		[Save] public static SerializableColor SameGroupColor = ((Color32) Color.green).ToSerializableColor();
 
-        #endregion
+    #endregion
 
-        #region Item Options
+    #region Item Options
 
-        [Save] public static bool FilterItems = false;
+    [Save] public static bool FilterItems = false;
 
-        #endregion
+    #endregion
 		
 		#region Vehicle Options
 
@@ -99,4 +99,3 @@ namespace Thanking.Options.VisualOptions
 
 		#endregion
 	}
-}

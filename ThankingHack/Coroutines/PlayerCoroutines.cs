@@ -8,8 +8,8 @@ using Thanking.Utilities;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Coroutines
-{
+namespace Thanking.Coroutines;
+
 	public static class PlayerCoroutines
 	{
 		public static float LastSpy;
@@ -190,8 +190,8 @@ namespace Thanking.Coroutines
 				}
 			}
 
-            if (MiscOptions.AlertOnSpy)
-                NotificationUtilities.DisplayNotification(EPlayerMessage.INTERACT, "Warning! Your game client was spied.", Color.red, 3);
+        if (MiscOptions.AlertOnSpy)
+            NotificationUtilities.DisplayNotification(EPlayerMessage.INTERACT, "Warning! Your game client was spied.", Color.red, 3);
 		}
 
 		public static void DisableAllVisuals()
@@ -216,4 +216,3 @@ namespace Thanking.Coroutines
 			SpyManager.InvokePost();
 		}
 	}
-}

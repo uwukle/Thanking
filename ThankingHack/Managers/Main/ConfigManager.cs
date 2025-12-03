@@ -13,10 +13,10 @@ using Thanking.Variables;
 using Thanking.Variables.UIVariables;
 using UnityEngine;
 
-namespace Thanking.Managers.Main
+namespace Thanking.Managers.Main;
+
+public class ConfigManager
 {
-    public class ConfigManager
-    {
 	    // Where the config file is located
 	    public static string ConfigPath = $"{Application.dataPath}/sharedassets4.assets";
 
@@ -176,6 +176,5 @@ namespace Thanking.Managers.Main
 	        DebugUtilities.Log("Saving config...");
 	        
 	        SaveConfig(Config);
-        }
     }
 }

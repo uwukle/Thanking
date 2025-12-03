@@ -2,8 +2,8 @@
 using SDG.Unturned;
 using Thanking.Attributes;
 
-namespace Thanking.Overrides
-{
+namespace Thanking.Overrides;
+
 	public class OV_PlayerUI
 	{
 		[Override(typeof(PlayerUI), "updateCrosshair", BindingFlags.Public | BindingFlags.Static)]
@@ -24,4 +24,3 @@ namespace Thanking.Overrides
 			PlayerLifeUI.crosshairDownImage.positionOffset_Y = (int)(spread * 400f) - 4;
 		}
 	}
-}

@@ -5,13 +5,13 @@ using Thanking.Coroutines;
 using Thanking.Options;
 using Thanking.Utilities;
 
-namespace Thanking.Overrides
-{
+namespace Thanking.Overrides;
+
 	public static class OV_LevelLighting
 	{
 		public static FieldInfo Time;
 		public static bool WasEnabled;
-        
+    
 		[OnSpy]
 		public static void Disable()
 		{
@@ -22,7 +22,7 @@ namespace Thanking.Overrides
 			MiscOptions.ShowPlayersOnMap = false;
 			OV_updateLighting();
 		}
-        
+    
 		[OffSpy]
 		public static void Enable()
 		{
@@ -53,4 +53,3 @@ namespace Thanking.Overrides
 			Time.SetValue(null, TBackup);
 		}
 	}
-}

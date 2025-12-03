@@ -9,8 +9,8 @@ using Thanking.Utilities;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Components.Basic
-{
+namespace Thanking.Components.Basic;
+
 	[Component]
 	public class TriggerbotComponent : MonoBehaviour
 	{
@@ -115,4 +115,3 @@ namespace Thanking.Components.Basic
 			}
 		}
 	}
-}

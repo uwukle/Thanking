@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace Thanking.Attributes
-{
+namespace Thanking.Attributes;
+
 	/// <summary>
 	/// Attribute on a method, invoked on startup
 	/// </summary>
@@ -10,4 +10,3 @@ namespace Thanking.Attributes
 	{
 
 	}
-}

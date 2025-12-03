@@ -1,5 +1,5 @@
-﻿namespace Thanking.Misc.Enums
-{
+﻿namespace Thanking.Misc.Enums;
+
 	public enum LabelLocation
 	{
 		TopRight,
@@ -12,4 +12,3 @@
 		BottomMiddle,
 		BottomLeft
 	}
-}

@@ -7,89 +7,89 @@ using Thanking.Utilities;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Overrides
+namespace Thanking.Overrides;
+
+public static class OV_PlayerDashboardInformationUI
 {
-    public static class OV_PlayerDashboardInformationUI
-    {
-        public static bool WasGPSEnabled;
-        public static bool WasEnabled;
-        
-        public static MethodInfo RefreshStaticMap;
-        public static FieldInfo DynamicContainerInfo;
-        private static Sleek mapDynamicContainer =>
+    public static bool WasGPSEnabled;
+    public static bool WasEnabled;
+    
+    public static MethodInfo RefreshStaticMap;
+    public static FieldInfo DynamicContainerInfo;
+    private static Sleek mapDynamicContainer =>
 			(Sleek)DynamicContainerInfo.GetValue(null);
 
-        public static int GetMap()
-        {
-            PlayerInventory plrInv = OptimizationVariables.MainPlayer.inventory;
+    public static int GetMap()
+    {
+        PlayerInventory plrInv = OptimizationVariables.MainPlayer.inventory;
 
-            if (MiscOptions.GPS || plrInv.has(1176) != null)
-                return 1;
+        if (MiscOptions.GPS || plrInv.has(1176) != null)
+            return 1;
 
-            return 0;
-        }
-        
-        [Initializer]
-        public static void Init()
-        {
-            DynamicContainerInfo =
-                typeof(PlayerDashboardInformationUI).GetField("mapDynamicContainer", ReflectionVariables.PrivateStatic);
-            RefreshStaticMap =
-                typeof(PlayerDashboardInformationUI).GetMethod("refreshStaticMap",
-                    BindingFlags.NonPublic | BindingFlags.Static);
-        }
-        
-        [OnSpy]
-        public static void Disable()
-        { 
-            if (!DrawUtilities.ShouldRun())
-                return;
+        return 0;
+    }
+    
+    [Initializer]
+    public static void Init()
+    {
+        DynamicContainerInfo =
+            typeof(PlayerDashboardInformationUI).GetField("mapDynamicContainer", ReflectionVariables.PrivateStatic);
+        RefreshStaticMap =
+            typeof(PlayerDashboardInformationUI).GetMethod("refreshStaticMap",
+                BindingFlags.NonPublic | BindingFlags.Static);
+    }
+    
+    [OnSpy]
+    public static void Disable()
+    { 
+        if (!DrawUtilities.ShouldRun())
+            return;
 		    
-            WasEnabled = MiscOptions.ShowPlayersOnMap;
-            WasGPSEnabled = MiscOptions.Compass;
-            
-            MiscOptions.ShowPlayersOnMap = false;
-            MiscOptions.GPS = false;
-            
-            RefreshStaticMap.Invoke(OptimizationVariables.MainPlayer.inventory, new object[] {GetMap()});
-            OV_refreshDynamicMap();
-        }
+        WasEnabled = MiscOptions.ShowPlayersOnMap;
+        WasGPSEnabled = MiscOptions.Compass;
         
-        [OffSpy]
-        public static void Enable()
-        {
-            if (!DrawUtilities.ShouldRun())
-                return;
+        MiscOptions.ShowPlayersOnMap = false;
+        MiscOptions.GPS = false;
+        
+        RefreshStaticMap.Invoke(OptimizationVariables.MainPlayer.inventory, new object[] {GetMap()});
+        OV_refreshDynamicMap();
+    }
+    
+    [OffSpy]
+    public static void Enable()
+    {
+        if (!DrawUtilities.ShouldRun())
+            return;
 		    
-            MiscOptions.ShowPlayersOnMap = WasEnabled;
-            MiscOptions.GPS = WasGPSEnabled;
-            
-            RefreshStaticMap.Invoke(OptimizationVariables.MainPlayer.inventory, new object[] {GetMap()});
-            OV_refreshDynamicMap();
-        }
-
-        [Override(typeof(PlayerDashboardInformationUI), "searchForMapsInInventory",
-            BindingFlags.NonPublic | BindingFlags.Static)]
-        public static void OV_searchForMapsInInventory(ref bool enableChart, ref bool enableMap)
-        {
-            if (MiscOptions.GPS)
-            {
-                enableMap = true;
-                enableChart = true;
-
-                return;
-            }
-
-            OverrideUtilities.CallOriginal();
-        }
+        MiscOptions.ShowPlayersOnMap = WasEnabled;
+        MiscOptions.GPS = WasGPSEnabled;
         
+        RefreshStaticMap.Invoke(OptimizationVariables.MainPlayer.inventory, new object[] {GetMap()});
+        OV_refreshDynamicMap();
+    }
+
+    [Override(typeof(PlayerDashboardInformationUI), "searchForMapsInInventory",
+        BindingFlags.NonPublic | BindingFlags.Static)]
+    public static void OV_searchForMapsInInventory(ref bool enableChart, ref bool enableMap)
+    {
+        if (MiscOptions.GPS)
+        {
+            enableMap = true;
+            enableChart = true;
+
+            return;
+        }
+
+        OverrideUtilities.CallOriginal();
+    }
+    
 		[Override(typeof(PlayerDashboardInformationUI), "refreshDynamicMap", BindingFlags.Public | BindingFlags.Static)]
-        public static void OV_refreshDynamicMap()
+    public static void OV_refreshDynamicMap()
 		{
-            mapDynamicContainer.remove();
+        mapDynamicContainer.remove();
 		    
-            if (!PlayerDashboardInformationUI.active)
-                return;
+        if (!PlayerDashboardInformationUI.active)
+            return;
 
 		    if (PlayerDashboardInformationUI.noLabel.isVisible || !Provider.modeConfigData.Gameplay.Group_Map) 
 			    return;
@@ -163,19 +163,19 @@ namespace Thanking.Overrides
 		        sleekImageTexture10.sizeScale_Y = 1f - sleekImageTexture6.positionScale_Y - sleekImageTexture6.sizeScale_Y;
 		        mapDynamicContainer.add(sleekImageTexture10);
 		    }
-                
+            
 		    foreach (SteamPlayer steamPlayer in Provider.clients)
 		    {
 		        if (steamPlayer.model == null) 
 		            continue;
-                    
+                
 		        PlayerQuests quests = steamPlayer.player.quests;
 		        if (steamPlayer.playerID.steamID != Provider.client &&
 		            !quests.isMemberOfSameGroupAs(OptimizationVariables.MainPlayer) &&
 		            (!MiscOptions.ShowPlayersOnMap || !DrawUtilities.ShouldRun() || PlayerCoroutines.IsSpying))
 		            continue;
 
-                    
+                
 		        SleekImageTexture sleekImageTexture12 = new SleekImageTexture();
 		        sleekImageTexture12.positionOffset_X = -10;
 		        sleekImageTexture12.positionOffset_Y = -10;
@@ -190,10 +190,10 @@ namespace Thanking.Overrides
 
 		        sleekImageTexture12.shouldDestroyTexture = true;
 		        mapDynamicContainer.add(sleekImageTexture12);
-                    
+                
 		        if (!quests.isMarkerPlaced) 
 		            continue;
-                    
+                
 		        SleekImageTexture sleekImageTexture11 = new SleekImageTexture(PlayerDashboardInformationUI.icons.load<Texture2D>("Marker"));
 		        sleekImageTexture11.positionScale_X = quests.markerPosition.x / (Level.size - Level.border * 2) + 0.5f;
 		        sleekImageTexture11.positionScale_Y = 0.5f - quests.markerPosition.z / (Level.size - Level.border * 2);
@@ -204,13 +204,13 @@ namespace Thanking.Overrides
 		        sleekImageTexture11.backgroundColor = steamPlayer.markerColor;
 
 		        sleekImageTexture11.addLabel(steamPlayer.playerID.characterName, ESleekSide.RIGHT);
-                    
+                
 		        mapDynamicContainer.add(sleekImageTexture11);
 		    }
 
 		    if (OptimizationVariables.MainPlayer == null)
 		        return;
-                
+            
 		    SleekImageTexture sleekImageTexture13 = new SleekImageTexture();
 		    sleekImageTexture13.positionOffset_X = -10;
 		    sleekImageTexture13.positionOffset_Y = -10;
@@ -228,5 +228,4 @@ namespace Thanking.Overrides
 			
 			mapDynamicContainer.add(sleekImageTexture13);
 		}
-    }
 }

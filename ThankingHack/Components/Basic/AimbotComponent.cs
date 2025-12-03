@@ -2,8 +2,8 @@
 using Thanking.Coroutines;
 using UnityEngine;
 
-namespace Thanking.Components.Basic
-{
+namespace Thanking.Components.Basic;
+
 	/// <summary>
 	/// Component used to start aimbot coroutines and check hotkeys if necessary
 	/// </summary>
@@ -18,4 +18,3 @@ namespace Thanking.Components.Basic
 			StartCoroutine(RaycastCoroutines.UpdateObjects());
 		}
 	}
-}

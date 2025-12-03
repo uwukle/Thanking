@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Thanking.Misc.Classes.Misc
-{
+namespace Thanking.Misc.Classes.Misc;
+
 	public class LocalBounds
 	{
 		public Vector3 PosOffset;
@@ -13,4 +13,3 @@ namespace Thanking.Misc.Classes.Misc
 			Extents = e;
 		}
 	}
-}

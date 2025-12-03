@@ -14,14 +14,14 @@ using Thanking.Variables;
 using Thanking.Variables.UIVariables;
 using UnityEngine;
 
-namespace Thanking.Components.UI
-{
+namespace Thanking.Components.UI;
+
 	[Component]
 	[SpyComponent]
 	public class WeaponComponent : MonoBehaviour
 	{
 		public static Dictionary<ushort, float[]> AssetBackups = new Dictionary<ushort, float[]>();
-        public static List<TracerLine> Tracers = new List<TracerLine>();
+    public static List<TracerLine> Tracers = new List<TracerLine>();
 		public static Camera MainCamera;
 		
 		public static FieldInfo AmmoInfo = typeof(UseableGun).GetField("ammo", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -202,4 +202,3 @@ namespace Thanking.Components.UI
 				search.jar.y);
 		}
 	}
-}

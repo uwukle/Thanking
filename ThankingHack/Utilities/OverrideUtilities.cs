@@ -7,19 +7,19 @@ using Thanking.Managers.Submanagers;
 using Thanking.Wrappers;
 using Debug = UnityEngine.Debug;
 
-namespace Thanking.Utilities
+namespace Thanking.Utilities;
+
+public static class OverrideUtilities
 {
-    public static class OverrideUtilities
-    {
-        #region Public Functions
-        /// <summary>
-        /// Calls the original method that was Overrideed
-        /// </summary>
-        /// <param name="method">The original method</param>
-        /// <param name="instance">The instance for the method(null if static)</param>
-        /// <param name="args">The arguments for the method</param>
-        /// <returns>The value that the original function returns</returns>
-        public static object CallOriginalFunc(MethodInfo method, object instance = null, params object[] args)
+    #region Public Functions
+    /// <summary>
+    /// Calls the original method that was Overrideed
+    /// </summary>
+    /// <param name="method">The original method</param>
+    /// <param name="instance">The instance for the method(null if static)</param>
+    /// <param name="args">The arguments for the method</param>
+    /// <returns>The value that the original function returns</returns>
+    public static object CallOriginalFunc(MethodInfo method, object instance = null, params object[] args)
 		{
 			// Do the checks
 			if (OverrideManager.Overrides.All(o => o.Value.Original != method))
@@ -28,70 +28,70 @@ namespace Thanking.Utilities
 			// Set the variables
 			OverrideWrapper wrapper =OverrideManager.Overrides.First(a => a.Value.Original == method).Value;
 			
-            return wrapper.CallOriginal(args, instance);
-        }
-        
-        /// <summary>
-        /// Calls the original method that was Overrideed
-        /// </summary>
-        /// <param name="instance">The instance for the method(null if static)</param>
-        /// <param name="args">The arguments for the method</param>
-        /// <returns>The value tahat the original function returns</returns>
-        public static object CallOriginal(object instance = null, params object[] args)
-        {
-            StackTrace trace = new StackTrace(false);
+        return wrapper.CallOriginal(args, instance);
+    }
+    
+    /// <summary>
+    /// Calls the original method that was Overrideed
+    /// </summary>
+    /// <param name="instance">The instance for the method(null if static)</param>
+    /// <param name="args">The arguments for the method</param>
+    /// <returns>The value tahat the original function returns</returns>
+    public static object CallOriginal(object instance = null, params object[] args)
+    {
+        StackTrace trace = new StackTrace(false);
 
-            if (trace.FrameCount < 1)
-                throw new Exception("Invalid trace back to the original method! Please provide the methodinfo instead!");
+        if (trace.FrameCount < 1)
+            throw new Exception("Invalid trace back to the original method! Please provide the methodinfo instead!");
 
-            MethodBase modded = trace.GetFrame(1).GetMethod();
-            MethodInfo original = null;
+        MethodBase modded = trace.GetFrame(1).GetMethod();
+        MethodInfo original = null;
 
-            if (!Attribute.IsDefined(modded, typeof(OverrideAttribute)))
-                modded = trace.GetFrame(2).GetMethod();
-            OverrideAttribute att = (OverrideAttribute)Attribute.GetCustomAttribute(modded, typeof(OverrideAttribute));
+        if (!Attribute.IsDefined(modded, typeof(OverrideAttribute)))
+            modded = trace.GetFrame(2).GetMethod();
+        OverrideAttribute att = (OverrideAttribute)Attribute.GetCustomAttribute(modded, typeof(OverrideAttribute));
 
-            if (att == null)
-                throw new Exception("This method can only be called from an overwritten method!");
-            if (!att.MethodFound)
-                throw new Exception("The original method was never found!");
-            original = att.Method;
+        if (att == null)
+            throw new Exception("This method can only be called from an overwritten method!");
+        if (!att.MethodFound)
+            throw new Exception("The original method was never found!");
+        original = att.Method;
 	        
 			if (OverrideManager.Overrides.All(o => o.Value.Original != original))
 				throw new Exception("The Override specified was not found!");
 
 			OverrideWrapper wrapper = OverrideManager.Overrides.First(a => a.Value.Original == original).Value;
 
-            return wrapper.CallOriginal(args, instance);
-        }
+        return wrapper.CallOriginal(args, instance);
+    }
 
-        /// <summary>
-        /// Enables the override of a method(WARNING: The method needs to have been overridden atleast once!)
-        /// </summary>
-        /// <param name="method">The original method that was overridden</param>
-        /// <returns>If the override was enabled successfully</returns>
-        public static bool EnableOverride(MethodInfo method)
-        {
-            // Set the variables
-            OverrideWrapper wrapper = OverrideManager.Overrides.First(a => a.Value.Original == method).Value;
+    /// <summary>
+    /// Enables the override of a method(WARNING: The method needs to have been overridden atleast once!)
+    /// </summary>
+    /// <param name="method">The original method that was overridden</param>
+    /// <returns>If the override was enabled successfully</returns>
+    public static bool EnableOverride(MethodInfo method)
+    {
+        // Set the variables
+        OverrideWrapper wrapper = OverrideManager.Overrides.First(a => a.Value.Original == method).Value;
 
-            // Do the checks
-            return wrapper != null && wrapper.Override();
-        }
+        // Do the checks
+        return wrapper != null && wrapper.Override();
+    }
 
-        /// <summary>
-        /// Disables the override of a method(WARNING: The method needs to have been overridden atleast once!)
-        /// </summary>
-        /// <param name="method">The original method that was Overrideed</param>
-        /// <returns>If the Override was disabled successfully</returns>
-        public static bool DisableOverride(MethodInfo method)
-        {
+    /// <summary>
+    /// Disables the override of a method(WARNING: The method needs to have been overridden atleast once!)
+    /// </summary>
+    /// <param name="method">The original method that was Overrideed</param>
+    /// <returns>If the Override was disabled successfully</returns>
+    public static bool DisableOverride(MethodInfo method)
+    {
 			// Set the variables
 	        OverrideWrapper wrapper = OverrideManager.Overrides.First(a => a.Value.Original == method).Value;
 
-            // Do the checks
-            return wrapper != null && wrapper.Revert();
-        }
+        // Do the checks
+        return wrapper != null && wrapper.Revert();
+    }
 
 		public static bool OverrideFunction(IntPtr ptrOriginal, IntPtr ptrModified)
 		{
@@ -109,10 +109,10 @@ namespace Thanking.Utilities
 							*(ptrFrom + 5) = 0xC3; // RETN
 
 							/* push, offset
-                             * retn
-                             * 
-                             * 
-                             */
+                         * retn
+                         * 
+                         * 
+                         */
 						}
 						break;
 					case sizeof(Int64):
@@ -127,9 +127,9 @@ namespace Thanking.Utilities
 							*(ptrFrom + 11) = 0xE0;
 
 							/* mov rax, offset
-                             * jmp rax
-                             * 
-                             */
+                         * jmp rax
+                         * 
+                         */
 						}
 						break;
 					default:
@@ -179,41 +179,40 @@ namespace Thanking.Utilities
 
 		#region SubClasses
 		public class OffsetBackup
+    {
+        #region Variables
+        public IntPtr Method;
+
+        public byte A, B, C, D, E, G;
+        public ulong F64;
+        public uint F32;
+        #endregion
+
+        public OffsetBackup(IntPtr method)
         {
-            #region Variables
-            public IntPtr Method;
+            Method = method;
 
-            public byte A, B, C, D, E, G;
-            public ulong F64;
-            public uint F32;
-            #endregion
-
-            public OffsetBackup(IntPtr method)
+            unsafe
             {
-                Method = method;
+                byte* ptrMethod = (byte*)method.ToPointer();
 
-                unsafe
+                A = *ptrMethod;
+                B = *(ptrMethod + 1);
+                C = *(ptrMethod + 10);
+                D = *(ptrMethod + 11);
+                E = *(ptrMethod + 12);
+                if (IntPtr.Size == sizeof(Int32))
                 {
-                    byte* ptrMethod = (byte*)method.ToPointer();
-
-                    A = *ptrMethod;
-                    B = *(ptrMethod + 1);
-                    C = *(ptrMethod + 10);
-                    D = *(ptrMethod + 11);
-                    E = *(ptrMethod + 12);
-                    if (IntPtr.Size == sizeof(Int32))
-                    {
-                        F32 = *((uint*)(ptrMethod + 1));
-                        G = *(ptrMethod + 5);
-                    }
-                    else
-                    {
-                        F64 = *((ulong*)(ptrMethod + 2));
-                    }
+                    F32 = *((uint*)(ptrMethod + 1));
+                    G = *(ptrMethod + 5);
+                }
+                else
+                {
+                    F64 = *((ulong*)(ptrMethod + 2));
                 }
             }
         }
+    }
 		#endregion
 		#endregion
 	}
-}

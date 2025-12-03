@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace Thanking.Misc.Enums
-{
+namespace Thanking.Misc.Enums;
+
 	[Flags]
 	public enum AllocationType : uint
 	{
@@ -13,4 +13,3 @@ namespace Thanking.Misc.Enums
 		TOP_DOWN = 0x100000,
 		WRITE_WATCH = 0x200000
 	}
-}

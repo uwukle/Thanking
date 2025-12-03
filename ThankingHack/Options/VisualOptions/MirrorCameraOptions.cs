@@ -1,9 +1,8 @@
 ﻿using Thanking.Attributes;
 
-namespace Thanking.Options.VisualOptions
+namespace Thanking.Options.VisualOptions;
+
+public static class MirrorCameraOptions
 {
-    public static class MirrorCameraOptions
-    {
-        [Save] public static bool Enabled = false;
-    }
+    [Save] public static bool Enabled = false;
 }

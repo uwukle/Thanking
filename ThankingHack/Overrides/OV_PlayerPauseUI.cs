@@ -2,12 +2,11 @@
 using SDG.Unturned;
 using Thanking.Attributes;
 
-namespace Thanking.Overrides
+namespace Thanking.Overrides;
+
+public static class OV_PlayerPauseUI
 {
-    public static class OV_PlayerPauseUI
-    {
-        [Override(typeof(PlayerPauseUI), "onClickedExitButton", BindingFlags.NonPublic | BindingFlags.Static)]
-        public static void OV_onClickedExitButton(SleekButton button) =>
-            Provider.disconnect();
-    }
+    [Override(typeof(PlayerPauseUI), "onClickedExitButton", BindingFlags.NonPublic | BindingFlags.Static)]
+    public static void OV_onClickedExitButton(SleekButton button) =>
+        Provider.disconnect();
 }

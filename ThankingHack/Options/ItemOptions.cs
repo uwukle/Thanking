@@ -1,8 +1,8 @@
 ﻿using Thanking.Attributes;
 using Thanking.Misc.Classes.Misc;
 
-namespace Thanking.Options
-{
+namespace Thanking.Options;
+
 	public static class ItemOptions
 	{
 		[Save] public static bool AutoItemPickup = false;
@@ -10,4 +10,3 @@ namespace Thanking.Options
 		[Save] public static ItemOptionList ItemFilterOptions = new ItemOptionList();
 		[Save] public static ItemOptionList ItemESPOptions = new ItemOptionList();
 	}
-}

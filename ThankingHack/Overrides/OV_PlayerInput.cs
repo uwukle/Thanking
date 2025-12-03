@@ -11,10 +11,10 @@ using Thanking.Utilities;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Overrides
+namespace Thanking.Overrides;
+
+public class OV_PlayerInput
 {
-    public class OV_PlayerInput
-    {
 	    public static int Step = -1;
 	    public static PlayerInputPacket LastPacket;
 
@@ -39,27 +39,27 @@ namespace Thanking.Overrides
 
 	    public static bool Run;
 
-        public static FieldInfo inputXField =
-            typeof(PlayerMovement).GetField("input_x", BindingFlags.NonPublic | BindingFlags.Instance);
+    public static FieldInfo inputXField =
+        typeof(PlayerMovement).GetField("input_x", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        public static FieldInfo inputYField =
-            typeof(PlayerMovement).GetField("input_y", BindingFlags.NonPublic | BindingFlags.Instance);
+    public static FieldInfo inputYField =
+        typeof(PlayerMovement).GetField("input_y", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        public static FieldInfo isShootingField =
-            typeof(UseableGun).GetField("isShooting", BindingFlags.NonPublic | BindingFlags.Instance);
+    public static FieldInfo isShootingField =
+        typeof(UseableGun).GetField("isShooting", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        public static FieldInfo lastPrimaryField =
-           typeof(PlayerEquipment).GetField("lastPrimary", BindingFlags.NonPublic | BindingFlags.Instance);
+    public static FieldInfo lastPrimaryField =
+       typeof(PlayerEquipment).GetField("lastPrimary", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        public static void SetIsShooting(UseableGun gun, bool value) => isShootingField.SetValue(gun, value);
-        public static bool GetLastPrimary(PlayerEquipment equipment) => (bool)lastPrimaryField.GetValue(equipment);
-        public static int GetInputX(PlayerMovement movement) => (int)inputXField.GetValue(movement);
-        public static int GetInputY(PlayerMovement movement) => (int)inputYField.GetValue(movement);
+    public static void SetIsShooting(UseableGun gun, bool value) => isShootingField.SetValue(gun, value);
+    public static bool GetLastPrimary(PlayerEquipment equipment) => (bool)lastPrimaryField.GetValue(equipment);
+    public static int GetInputX(PlayerMovement movement) => (int)inputXField.GetValue(movement);
+    public static int GetInputY(PlayerMovement movement) => (int)inputYField.GetValue(movement);
 
-        private static readonly FieldInfo firemodeField = typeof(UseableGun).GetField("firemode", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static EFiremode GetFiremode(UseableGun gun) => (EFiremode)firemodeField.GetValue(gun);
+    private static readonly FieldInfo firemodeField = typeof(UseableGun).GetField("firemode", BindingFlags.NonPublic | BindingFlags.Instance);
+    private static EFiremode GetFiremode(UseableGun gun) => (EFiremode)firemodeField.GetValue(gun);
 
-        public static FieldInfo SimField = 
+    public static FieldInfo SimField = 
 		    typeof(PlayerInput).GetField("_simulation", BindingFlags.NonPublic | BindingFlags.Instance);
 	    
 	    public static FieldInfo ClockField = 
@@ -90,38 +90,38 @@ namespace Thanking.Overrides
 	    
 	    private static Vector3 lastSentPositon = Vector3.zero;
 
-        private static readonly EPlayerStance[] spinStances = new EPlayerStance[]{ EPlayerStance.SPRINT, EPlayerStance.STAND, EPlayerStance.CROUCH, EPlayerStance.PRONE };
-        private static float spinbotYaw;
-        private static float spinbotPitch;
-        private static bool walkSpin;
-        private static bool clicking;
+    private static readonly EPlayerStance[] spinStances = new EPlayerStance[]{ EPlayerStance.SPRINT, EPlayerStance.STAND, EPlayerStance.CROUCH, EPlayerStance.PRONE };
+    private static float spinbotYaw;
+    private static float spinbotPitch;
+    private static bool walkSpin;
+    private static bool clicking;
 
-        private static float NextSpinbotYaw(float increment)
-        {
-            spinbotYaw += increment;
-            if (spinbotYaw >= 360F)
-                spinbotYaw -= 360F;
-            return spinbotYaw;
-        }
+    private static float NextSpinbotYaw(float increment)
+    {
+        spinbotYaw += increment;
+        if (spinbotYaw >= 360F)
+            spinbotYaw -= 360F;
+        return spinbotYaw;
+    }
 
-        private static float NextSpinbotPitch(float increment)
-        {
-            spinbotPitch += increment;
-            if (spinbotPitch > 180F)
-                spinbotPitch -= 180F;
+    private static float NextSpinbotPitch(float increment)
+    {
+        spinbotPitch += increment;
+        if (spinbotPitch > 180F)
+            spinbotPitch -= 180F;
 
-            return spinbotPitch;
-        }
+        return spinbotPitch;
+    }
 
-        private static float ReverseAngle180(float angle)
-        {
-            angle += 180;
-            if (angle >= 360)
-                angle -= 360;
-            return angle;
-        }
+    private static float ReverseAngle180(float angle)
+    {
+        angle += 180;
+        if (angle >= 360)
+            angle -= 360;
+        return angle;
+    }
 
-        [Override(typeof(PlayerInput), "sendRaycast", BindingFlags.Public | BindingFlags.Instance)]
+    [Override(typeof(PlayerInput), "sendRaycast", BindingFlags.Public | BindingFlags.Instance)]
 	    public static void OV_sendRaycast(PlayerInput instance, RaycastInfo info)
 	    {
 		    if (Packets.Count > 0)
@@ -227,30 +227,30 @@ namespace Thanking.Overrides
 			    instance.keys[0] = player.movement.jump;
 			    instance.keys[1] = player.equipment.primary;
 
-                // Phase between false and true every other tick to simulate rapid tapping of the mouse
-                // (gunfire is simulated server-side from inputs)
-                if (WeaponOptions.FastSemiAuto && 
-                    player.equipment.useable is UseableGun gun &&
-                    (GetFiremode(gun) == EFiremode.SEMI || GetFiremode(gun) == EFiremode.BURST) &&
-                    player.equipment.primary)
+            // Phase between false and true every other tick to simulate rapid tapping of the mouse
+            // (gunfire is simulated server-side from inputs)
+            if (WeaponOptions.FastSemiAuto && 
+                player.equipment.useable is UseableGun gun &&
+                (GetFiremode(gun) == EFiremode.SEMI || GetFiremode(gun) == EFiremode.BURST) &&
+                player.equipment.primary)
+            {
+                if (!clicking)
                 {
-                    if (!clicking)
-                    {
-                        instance.keys[1] = true;
-                        clicking = true;
-                    }
-                    else
-                    {
-                        instance.keys[1] = false;
-                        clicking = false;
-                    }
+                    instance.keys[1] = true;
+                    clicking = true;
                 }
                 else
                 {
+                    instance.keys[1] = false;
                     clicking = false;
                 }
+            }
+            else
+            {
+                clicking = false;
+            }
 
-                instance.keys[2] = player.equipment.secondary;
+            instance.keys[2] = player.equipment.secondary;
 			    instance.keys[3] = player.stance.crouch;
 			    instance.keys[4] = player.stance.prone;
 			    instance.keys[5] = player.stance.sprint;
@@ -344,44 +344,44 @@ namespace Thanking.Overrides
 				    
 				    walkingPlayerInputPacket.analog = Analog;
 
-                    walkingPlayerInputPacket.position = instance.transform.localPosition;
+                walkingPlayerInputPacket.position = instance.transform.localPosition;
 
-                    var inputX = GetInputX(OptimizationVariables.MainPlayer.movement);
-                    var inputY = GetInputY(OptimizationVariables.MainPlayer.movement);
+                var inputX = GetInputX(OptimizationVariables.MainPlayer.movement);
+                var inputY = GetInputY(OptimizationVariables.MainPlayer.movement);
 
-                    if (MiscOptions.Spinbot && spinStances.Contains(OptimizationVariables.MainPlayer.stance.stance))
-                    {
-                        // Ghetto movement fix
-                        if (inputX == 0 && inputY == 0)
-                            walkingPlayerInputPacket.yaw = MiscOptions.StaticSpinbotYaw ? MiscOptions.SpinbotYaw : NextSpinbotYaw(MiscOptions.SpinbotYaw);
-                        else
-                        {
-                            // use walkSpin bool to phase between actual angle and inverted angle to spin while walking
-                            // and have fixed movement; only way we can do it with the d-pad like controls.
-                            if (!walkSpin)
-                            {
-                                // Flip x/y input to account for reversed yaw (where intended movement direction will be reversed)
-                                inputY *= -1;
-                                inputX *= -1;
-                                // Reverse yaw to spin while moving
-                                walkingPlayerInputPacket.yaw = ReverseAngle180(Yaw);
-                                walkingPlayerInputPacket.analog = (byte)(((byte)(inputX + 1)) << 4 | (byte)(inputY + 1));
-                                walkSpin = true;
-                            }
-                            else
-                            {
-                                walkingPlayerInputPacket.yaw = Yaw;
-                                walkSpin = false;
-                            }
-                        }
-
-                        walkingPlayerInputPacket.pitch = MiscOptions.StaticSpinbotPitch ? MiscOptions.SpinbotPitch : NextSpinbotPitch(MiscOptions.SpinbotPitch);
-                    }
+                if (MiscOptions.Spinbot && spinStances.Contains(OptimizationVariables.MainPlayer.stance.stance))
+                {
+                    // Ghetto movement fix
+                    if (inputX == 0 && inputY == 0)
+                        walkingPlayerInputPacket.yaw = MiscOptions.StaticSpinbotYaw ? MiscOptions.SpinbotYaw : NextSpinbotYaw(MiscOptions.SpinbotYaw);
                     else
                     {
-                        walkingPlayerInputPacket.yaw = Yaw;
-                        walkingPlayerInputPacket.pitch = Pitch;
+                        // use walkSpin bool to phase between actual angle and inverted angle to spin while walking
+                        // and have fixed movement; only way we can do it with the d-pad like controls.
+                        if (!walkSpin)
+                        {
+                            // Flip x/y input to account for reversed yaw (where intended movement direction will be reversed)
+                            inputY *= -1;
+                            inputX *= -1;
+                            // Reverse yaw to spin while moving
+                            walkingPlayerInputPacket.yaw = ReverseAngle180(Yaw);
+                            walkingPlayerInputPacket.analog = (byte)(((byte)(inputX + 1)) << 4 | (byte)(inputY + 1));
+                            walkSpin = true;
+                        }
+                        else
+                        {
+                            walkingPlayerInputPacket.yaw = Yaw;
+                            walkSpin = false;
+                        }
                     }
+
+                    walkingPlayerInputPacket.pitch = MiscOptions.StaticSpinbotPitch ? MiscOptions.SpinbotPitch : NextSpinbotPitch(MiscOptions.SpinbotPitch);
+                }
+                else
+                {
+                    walkingPlayerInputPacket.yaw = Yaw;
+                    walkingPlayerInputPacket.pitch = Pitch;
+                }
 			    }
 			    
 			    Packets.Add(playerInputPacket);
@@ -457,5 +457,4 @@ namespace Thanking.Overrides
 		    
 		    OverrideUtilities.CallOriginal(instance);
 	    }
-    }
 }

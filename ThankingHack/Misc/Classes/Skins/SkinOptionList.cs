@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Thanking.Misc.Enums;
 
-namespace Thanking.Misc.Classes.Skins
-{
+namespace Thanking.Misc.Classes.Skins;
+
 	public class SkinOptionList
 	{
 		public SkinType Type = SkinType.Weapons;
@@ -13,4 +13,3 @@ namespace Thanking.Misc.Classes.Skins
 			this.Type = Type;
 		}
 	}
-}

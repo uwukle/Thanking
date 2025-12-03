@@ -7,27 +7,26 @@ using Thanking.Options.AimOptions;
 using Thanking.Utilities;
 using Thanking.Variables;
 
-namespace Thanking.Overrides
+namespace Thanking.Overrides;
+
+public class OV_UseableMelee
 {
-    public class OV_UseableMelee
+    [Override(typeof(UseableMelee), "fire", BindingFlags.NonPublic | BindingFlags.Instance)]
+    public static void OV_fire()
     {
-        [Override(typeof(UseableMelee), "fire", BindingFlags.NonPublic | BindingFlags.Instance)]
-        public static void OV_fire()
-        {
-            OV_DamageTool.OVType = OverrideType.None;
-            
-            if (RaycastOptions.Enabled && MiscOptions.ExtendMeleeRange)
-                OV_DamageTool.OVType = OverrideType.SilentAimMelee;
-            
-            else if (RaycastOptions.Enabled)
-                OV_DamageTool.OVType = OverrideType.SilentAim;
-            
-            else if (MiscOptions.ExtendMeleeRange)
-                OV_DamageTool.OVType = OverrideType.Extended;
+        OV_DamageTool.OVType = OverrideType.None;
+        
+        if (RaycastOptions.Enabled && MiscOptions.ExtendMeleeRange)
+            OV_DamageTool.OVType = OverrideType.SilentAimMelee;
+        
+        else if (RaycastOptions.Enabled)
+            OV_DamageTool.OVType = OverrideType.SilentAim;
+        
+        else if (MiscOptions.ExtendMeleeRange)
+            OV_DamageTool.OVType = OverrideType.Extended;
 
-            OverrideUtilities.CallOriginal(OptimizationVariables.MainPlayer.equipment.useable);
+        OverrideUtilities.CallOriginal(OptimizationVariables.MainPlayer.equipment.useable);
 
-            OV_DamageTool.OVType = OverrideType.None;
-        }
+        OV_DamageTool.OVType = OverrideType.None;
     }
 }

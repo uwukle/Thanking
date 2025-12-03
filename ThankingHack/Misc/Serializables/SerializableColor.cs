@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Thanking.Misc.Serializables
-{
+namespace Thanking.Misc.Serializables;
+
 	public class SerializableColor
 	{
 		public int r, g, b, a;
@@ -33,4 +33,3 @@ namespace Thanking.Misc.Serializables
 		public Color32 ToColor() =>
 			new Color32((byte)r, (byte)g, (byte)b, (byte)a);
 	}
-}

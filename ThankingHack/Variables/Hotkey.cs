@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 
-namespace Thanking.Variables
+namespace Thanking.Variables;
+
+public class Hotkey
 {
-    public class Hotkey
-    {
-        public string Name;
-        public KeyCode[] Keys;
-    }
+    public string Name;
+    public KeyCode[] Keys;
 }

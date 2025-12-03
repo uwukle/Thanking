@@ -4,15 +4,14 @@ using Thanking.Coroutines;
 using Thanking.Options.AimOptions;
 using UnityEngine;
 
-namespace Thanking.Components
+namespace Thanking.Components;
+
+[Component]
+public class AimbotComponent : MonoBehaviour
 {
-    [Component]
-    public class AimbotComponent : MonoBehaviour
+    public void Start()
     {
-        public void Start()
-        {
-            CoroutineComponent.LockCoroutine = StartCoroutine(AimbotCoroutines.SetLockedObject());
-            CoroutineComponent.AimbotCoroutine = StartCoroutine(AimbotCoroutines.AimToObject());
-        }
+        CoroutineComponent.LockCoroutine = StartCoroutine(AimbotCoroutines.SetLockedObject());
+        CoroutineComponent.AimbotCoroutine = StartCoroutine(AimbotCoroutines.AimToObject());
     }
 }

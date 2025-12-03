@@ -3,8 +3,8 @@ using Thanking.Attributes;
 using Thanking.Variables.UIVariables;
 using UnityEngine;
 
-namespace Thanking.Options.VisualOptions
-{
+namespace Thanking.Options.VisualOptions;
+
 	public static class ColorOptions
 	{
 		[Save] public static Dictionary<string, ColorVariable> ColorDict = new Dictionary<string, ColorVariable>();
@@ -17,4 +17,3 @@ namespace Thanking.Options.VisualOptions
 		
 		public static string selectedOption;
 	}
-}

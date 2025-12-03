@@ -5,13 +5,13 @@ using Thanking.Options.VisualOptions;
 using Thanking.Variables.UIVariables;
 using UnityEngine;
 
-namespace Thanking.Utilities
-{
+namespace Thanking.Utilities;
+
 	public static class ColorUtilities
 	{
 		public static void addColor(ColorVariable ColorVariable)
 		{
-            if (!ColorOptions.DefaultColorDict.ContainsKey(ColorVariable.identity))
+        if (!ColorOptions.DefaultColorDict.ContainsKey(ColorVariable.identity))
 	            ColorOptions.DefaultColorDict.Add(ColorVariable.identity, ColorVariable);
 		}
 
@@ -55,4 +55,3 @@ namespace Thanking.Utilities
 			return new Color32(r, g, b, 255);
 		}
 	}
-}

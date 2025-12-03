@@ -3,26 +3,26 @@ using Thanking.Options.AimOptions;
 using Thanking.Variables.UIVariables;
 using UnityEngine;
 
-namespace Thanking.Components.UI.Menu.Tabs
+namespace Thanking.Components.UI.Menu.Tabs;
+
+public static class WeaponsTab
 {
-    public static class WeaponsTab
+    public static void Tab()
     {
-        public static void Tab()
-        {
 	        Prefab.MenuArea(new Rect(0, 0, 466, 436), "WEAPONS", () =>
 	        {
 		        GUILayout.BeginHorizontal();
 		        GUILayout.BeginVertical(GUILayout.Width(230));
-                Prefab.Toggle("Automatic Semi-Automatic", ref WeaponOptions.FastSemiAuto);
-                Prefab.Toggle("No Recoil", ref WeaponOptions.NoRecoil);
+            Prefab.Toggle("Automatic Semi-Automatic", ref WeaponOptions.FastSemiAuto);
+            Prefab.Toggle("No Recoil", ref WeaponOptions.NoRecoil);
 		        Prefab.Toggle("No Spread", ref WeaponOptions.NoSpread);
 		        Prefab.Toggle("No Sway", ref WeaponOptions.NoSway);
-                Prefab.Toggle("No Drop", ref WeaponOptions.NoDrop);
+            Prefab.Toggle("No Drop", ref WeaponOptions.NoDrop);
 		        Prefab.Toggle("Triggerbot", ref TriggerbotOptions.Enabled);
 		        Prefab.Toggle("Auto Reload", ref WeaponOptions.AutoReload);
 		        Prefab.Toggle("Show Weapon Information", ref WeaponOptions.ShowWeaponInfo);
-                Prefab.Toggle("Trajectory Prediction", ref WeaponOptions.EnableBulletDropPrediction);
-                Prefab.Toggle("Highlight Prediction Target", ref WeaponOptions.HighlightBulletDropPredictionTarget);
+            Prefab.Toggle("Trajectory Prediction", ref WeaponOptions.EnableBulletDropPrediction);
+            Prefab.Toggle("Highlight Prediction Target", ref WeaponOptions.HighlightBulletDropPredictionTarget);
 		        Prefab.Toggle("Custom Material", ref RaycastOptions.UseTargetMaterial);
 		        
 		        Prefab.Toggle("Random Limb", ref RaycastOptions.UseRandomLimb);
@@ -113,6 +113,5 @@ namespace Thanking.Components.UI.Menu.Tabs
 		        GUILayout.FlexibleSpace();
 		        GUILayout.EndHorizontal();
 	        });
-        }
     }
 }

@@ -4,10 +4,10 @@ using Thanking.Components.Basic;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Utilities
+namespace Thanking.Utilities;
+
+public static class SphereUtilities
 {
-    public static class SphereUtilities
-    {
 		public static bool GetRaycast(GameObject Target, Vector3 StartPos, out Vector3 Point)
 		{
 			Point = Vector3.zero;
@@ -53,4 +53,3 @@ namespace Thanking.Utilities
 			return false;
 		}
 	}
-}

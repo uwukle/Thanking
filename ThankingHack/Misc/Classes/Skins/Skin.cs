@@ -1,5 +1,5 @@
-﻿namespace Thanking.Misc.Classes.Skins
-{
+﻿namespace Thanking.Misc.Classes.Skins;
+
 	public class Skin
 	{
 		public string Name;
@@ -11,4 +11,3 @@
 			this.ID = ID;
 		}
 	}
-}

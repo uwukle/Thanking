@@ -9,40 +9,39 @@ using Thanking.Attributes;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Utilities
+namespace Thanking.Utilities;
+
+public static class NotificationUtilities
 {
-    public static class NotificationUtilities
+    private static bool beingSpied;
+
+    [OnSpy]
+    public static void OnSpy()
     {
-        private static bool beingSpied;
+        beingSpied = true;
+    }
 
-        [OnSpy]
-        public static void OnSpy()
+    [OffSpy]
+    public static void OffSpy()
+    {
+        beingSpied = false;
+    }
+
+    public static void DisplayNotification(EPlayerMessage type, string message, Color color, float displayTime) => 
+        OptimizationVariables.MainPlayer.StartCoroutine(DisplayNotificationCoroutine(type, message, color, displayTime));
+
+    private static IEnumerator DisplayNotificationCoroutine(EPlayerMessage type, string message, Color color, float displayTime)
+    {
+        var started = Time.realtimeSinceStartup;
+        while (true)
         {
-            beingSpied = true;
-        }
+            yield return new WaitForEndOfFrame();
 
-        [OffSpy]
-        public static void OffSpy()
-        {
-            beingSpied = false;
-        }
+            if (!beingSpied)
+                PlayerUI.hint(null, type, message, color);
 
-        public static void DisplayNotification(EPlayerMessage type, string message, Color color, float displayTime) => 
-            OptimizationVariables.MainPlayer.StartCoroutine(DisplayNotificationCoroutine(type, message, color, displayTime));
-
-        private static IEnumerator DisplayNotificationCoroutine(EPlayerMessage type, string message, Color color, float displayTime)
-        {
-            var started = Time.realtimeSinceStartup;
-            while (true)
-            {
-                yield return new WaitForEndOfFrame();
-
-                if (!beingSpied)
-                    PlayerUI.hint(null, type, message, color);
-
-                if (Time.realtimeSinceStartup - started > displayTime)
-                    yield break;
-            }
+            if (Time.realtimeSinceStartup - started > displayTime)
+                yield break;
         }
     }
 }

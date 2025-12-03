@@ -1,7 +1,7 @@
 ﻿using Thanking.Attributes;
 
-namespace Thanking.Options.AimOptions
-{
+namespace Thanking.Options.AimOptions;
+
 	public static class SphereOptions
 	{
 		[Save] public static float SphereRadius = 15f;
@@ -10,4 +10,3 @@ namespace Thanking.Options.AimOptions
 
 		//[Save] public static KeyCode Toggle = KeyCode.RightBracket;
 	}
-}

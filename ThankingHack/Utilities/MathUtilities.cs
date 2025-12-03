@@ -2,8 +2,8 @@
 using Thanking.Attributes;
 using UnityEngine;
 
-namespace Thanking.Utilities
-{
+namespace Thanking.Utilities;
+
 	public static class MathUtilities
 	{
 		public static System.Random Random;
@@ -102,4 +102,3 @@ namespace Thanking.Utilities
 			return fVectors.ToArray();
 		}
 	}
-}

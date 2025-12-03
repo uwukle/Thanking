@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace Thanking.Misc.Enums
-{
+namespace Thanking.Misc.Enums;
+
 	[Flags]
 	public enum MemoryProtection : uint
 	{
@@ -17,4 +17,3 @@ namespace Thanking.Misc.Enums
 		NOCACHE_Modifierflag = 0x200,
 		WRITECOMBINE_Modifierflag = 0x400
 	}
-}

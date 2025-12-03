@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace Thanking.Attributes
-{
+namespace Thanking.Attributes;
+
 	/// <summary>
 	/// Attribute that calls the target method after a spy is executed
 	/// </summary>
@@ -9,4 +9,3 @@ namespace Thanking.Attributes
 	public class OffSpyAttribute : Attribute
 	{
 	}
-}

@@ -7,8 +7,8 @@ using Thanking.Utilities;
 using Thanking.Variables;
 using UnityEngine;
 
-namespace Thanking.Coroutines
-{
+namespace Thanking.Coroutines;
+
 	public static class LoaderCoroutines
 	{
 		public static bool IsLoaded;
@@ -36,7 +36,7 @@ namespace Thanking.Coroutines
 				DebugUtilities.Log("Assets not downloaded, downloading now.");
 				#endif
 
- 
+
 				WWW loader = new WWW("http://ironic.services/client/304930/assets"); // Download the assets
 				yield return loader;
 
@@ -100,4 +100,3 @@ namespace Thanking.Coroutines
 			DebugUtilities.Log("Assets loaded!");
 		}
 	}
-}
